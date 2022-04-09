@@ -6,7 +6,9 @@ import wrong from "../assets/wrong.mp3";
 import { decode } from "html-entities";
 import { v4 as uuid } from "uuid";
 
+// next steps
 // when time out but correct answer stop moving to the next question: if stop, setStop
+// blink right answer when a wrong was chosen
 
 export default function Trivia({
   questionsData,
