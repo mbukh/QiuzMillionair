@@ -21,3 +21,5 @@ export default function Timer({ setStop, questionNumber }) {
   if (timer < 5) return <div className="endOfTime">{timer}</div>;
   else return timer;
 }
+
+//moshe
