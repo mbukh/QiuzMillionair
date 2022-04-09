@@ -6,8 +6,11 @@ import wrong from "../assets/wrong.mp3";
 import { decode } from "html-entities";
 import { v4 as uuid } from "uuid";
 
+// when time out but correct answer stop moving to the next question: if stop, setStop
+
 export default function Trivia({
   questionsData,
+  stop,
   setStop,
   questionNumber,
   setQuestionNumber,
@@ -20,9 +23,9 @@ export default function Trivia({
   const [correctAnswer] = useSound(correct);
   const [wrongAnswer] = useSound(wrong);
 
-  //  useEffect(() => {
-  //    letsPlay();
-  //  }, [letsPlay]);
+  useEffect(() => {
+    //  letsPlay();
+  }, [letsPlay]);
 
   // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   function shuffleArray(a) {
@@ -34,6 +37,10 @@ export default function Trivia({
   }
 
   useEffect(() => {
+    if (!questionsData[questionNumber - 1]) {
+      setStop(true);
+      return;
+    }
     setQuestion(questionsData[questionNumber - 1]);
     setAnswers(
       shuffleArray(
@@ -77,7 +84,9 @@ export default function Trivia({
   return (
     <div className="trivia">
       <div className="question">
-        {question ? decode(question.question) : ""}
+        {question
+          ? decode("(" + question.difficulty + ") " + question.question)
+          : ""}
       </div>
       <div className="answers">
         {question

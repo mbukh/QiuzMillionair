@@ -39,7 +39,10 @@ function App() {
         <>
           <div className="main">
             {stop ? (
-              <h1 className="endText">You earned: {earned} </h1>
+              <h1 className="endText">
+                Can you believe it, {username}? <br /> You've just earned:{" "}
+                {earned}
+              </h1>
             ) : (
               <>
                 <div className="top">
@@ -50,6 +53,7 @@ function App() {
                 <div className="bottom">
                   <Trivia
                     questionsData={questionsData}
+                    stop={stop}
                     setStop={setStop}
                     questionNumber={questionNumber}
                     setQuestionNumber={setQuestionNumber}
@@ -58,20 +62,31 @@ function App() {
               </>
             )}
           </div>
-          <div className="pyramid">
+          <div
+            className="pyramid"
+            onClick={() =>
+              questionsData[questionNumber] && !stop
+                ? setQuestionNumber(questionNumber + 1)
+                : ""
+            }
+          >
             <ul className="moneyList">
-              {moneyPyramid.map((m) => (
-                <li
-                  className={
-                    questionNumber === m.id
-                      ? "moneyListItem active"
-                      : "moneyListItem"
-                  }
-                >
-                  <span className="moneyListItemNumber">{m.id}</span>
-                  <span className="moneyListItemAmount">{m.amount}</span>
-                </li>
-              ))}
+              {moneyPyramid.map((m) =>
+                m.id > questionsData.length ? (
+                  ""
+                ) : (
+                  <li
+                    className={
+                      questionNumber === m.id
+                        ? "moneyListItem active"
+                        : "moneyListItem"
+                    }
+                  >
+                    <span className="moneyListItemNumber">{m.id}</span>
+                    <span className="moneyListItemAmount">{m.amount}</span>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         </>

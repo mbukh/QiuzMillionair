@@ -29,6 +29,12 @@
   bottom: 10px;
   left: 80px;
 }
+.endOfTime {
+  color: crimson;
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white,
+    1px 1px 0 white;
+  font-size: 35px;
+}
 .bottom {
   height: 50%;
 }
@@ -142,6 +148,8 @@
 }
 .endText {
   position: relative;
+  text-align: center;
+  line-height: 60px;
   top: 0;
   bottom: 0;
   left: 0;

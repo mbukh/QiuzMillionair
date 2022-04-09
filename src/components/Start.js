@@ -9,8 +9,40 @@ export default function Start({
   const inputRef = useRef();
 
   useEffect(() => {
-    axios.get(`https://opentdb.com/api.php?amount=30`).then((res) => {
-      setQuestionsData(res.data.results);
+    axios.get(`https://opentdb.com/api.php?amount=500`).then((res) => {
+      const questionsSet = [].concat(
+        res.data.results
+          .filter((obj) => {
+            return obj.difficulty === "easy" && obj.type === "boolean";
+          })
+          .slice(0, 2),
+        res.data.results
+          .filter((obj) => {
+            return obj.difficulty === "easy" && obj.type === "multiple";
+          })
+          .slice(0, 3),
+        res.data.results
+          .filter((obj) => {
+            return obj.difficulty === "medium" && obj.type === "boolean";
+          })
+          .slice(0, 2),
+        res.data.results
+          .filter((obj) => {
+            return obj.difficulty === "medium" && obj.type === "multiple";
+          })
+          .slice(0, 2),
+        res.data.results
+          .filter((obj) => {
+            return obj.difficulty === "hard" && obj.type === "boolean";
+          })
+          .slice(0, 1),
+        res.data.results
+          .filter((obj) => {
+            return obj.difficulty === "hard" && obj.type === "multiple";
+          })
+          .slice(0, 1)
+      );
+      setQuestionsData(questionsSet.slice(0, 10));
     });
   }, []);
 
