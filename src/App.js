@@ -62,15 +62,19 @@ function App() {
               </>
             )}
           </div>
-          <div
-            className="pyramid"
-            onClick={() =>
-              questionsData[questionNumber] && !stop
-                ? setQuestionNumber(questionNumber + 1)
-                : ""
-            }
-          >
+          <div className="pyramid">
             <ul className="moneyList">
+              <li
+                className="moneyListItem"
+                onClick={() =>
+                  questionsData[questionNumber] && !stop
+                    ? setQuestionNumber(questionNumber + 1)
+                    : ""
+                }
+              >
+                <span className="moneyListItemNumber"></span>
+                <span className="moneyListItemAmount">(click to skip)</span>
+              </li>
               {moneyPyramid.map((m) =>
                 m.id > questionsData.length ? (
                   ""
