@@ -1,23 +1,87 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useMemo, useState } from "react";
+import Trivia from "./components/Trivia";
+import Timer from "./components/Timer";
+import Start from "./components/Start";
+import "./app.css";
 
 function App() {
+  const [questionsData, setQuestionsData] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [questionNumber, setQuestionNumber] = useState(1);
+  const [stop, setStop] = useState(false);
+  const [earned, setEarned] = useState("$ 0");
+
+  const moneyPyramid = useMemo(
+    () =>
+      [
+        { id: 1, amount: "$ 1000" },
+        { id: 2, amount: "$ 2000" },
+        { id: 3, amount: "$ 5000" },
+        { id: 4, amount: "$ 10 000" },
+        { id: 5, amount: "$ 20 000" },
+        { id: 6, amount: "$ 50 000" },
+        { id: 7, amount: "$ 100 000" },
+        { id: 8, amount: "$ 200 000" },
+        { id: 9, amount: "$ 500 000" },
+        { id: 10, amount: "$ 1 000 000" },
+      ].reverse(),
+    []
+  );
+
+  useEffect(() => {
+    questionNumber > 1 &&
+      setEarned(moneyPyramid.find((m) => m.id === questionNumber - 1).amount);
+  }, [moneyPyramid, questionNumber]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {username && questionsData ? (
+        <>
+          <div className="main">
+            {stop ? (
+              <h1 className="endText">You earned: {earned} </h1>
+            ) : (
+              <>
+                <div className="top">
+                  <div className="timer">
+                    <Timer setStop={setStop} questionNumber={questionNumber} />
+                  </div>
+                </div>
+                <div className="bottom">
+                  <Trivia
+                    questionsData={questionsData}
+                    setStop={setStop}
+                    questionNumber={questionNumber}
+                    setQuestionNumber={setQuestionNumber}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+          <div className="pyramid">
+            <ul className="moneyList">
+              {moneyPyramid.map((m) => (
+                <li
+                  className={
+                    questionNumber === m.id
+                      ? "moneyListItem active"
+                      : "moneyListItem"
+                  }
+                >
+                  <span className="moneyListItemNumber">{m.id}</span>
+                  <span className="moneyListItemAmount">{m.amount}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      ) : (
+        <Start
+          setUsername={setUsername}
+          questionsData={questionsData}
+          setQuestionsData={setQuestionsData}
+        />
+      )}
     </div>
   );
 }
