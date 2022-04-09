@@ -26,7 +26,7 @@ export default function Trivia({
   const [wrongAnswer] = useSound(wrong);
 
   useEffect(() => {
-    //  letsPlay();
+    letsPlay();
   }, [letsPlay]);
 
   // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
@@ -69,13 +69,13 @@ export default function Trivia({
     );
     delay(4600, () => {
       if (a === question.correct_answer) {
-        // correctAnswer();
+        correctAnswer();
         delay(5600, () => {
           setQuestionNumber((prev) => prev + 1);
           setSelectedAnswer(null);
         });
       } else {
-        // wrongAnswer();
+        wrongAnswer();
         delay(3000, () => {
           setStop(true);
         });

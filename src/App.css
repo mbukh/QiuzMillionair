@@ -79,9 +79,6 @@
 .answer.active {
   background: mediumblue;
 }
-.answer.correct {
-  animation: correct 3s ease forwards;
-}
 @keyframes correct {
   0%,
   22%,
@@ -98,8 +95,8 @@
     background: green;
   }
 }
-.answer.wrong {
-  animation: wrong 3s ease forwards;
+.answer.correct {
+  animation: correct 3s ease forwards;
 }
 @keyframes wrong {
   0%,
@@ -116,6 +113,9 @@
   100% {
     background: crimson;
   }
+}
+.answer.wrong {
+  animation: wrong 3s ease forwards;
 }
 .pyramid {
   width: 25%;
@@ -192,14 +192,6 @@
   font-size: 18px;
   font-weight: 500;
 }
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 10px solid #f3f3f3;
-  border-top: 10px solid #383636;
-  border-radius: 50%;
-  animation: spinner 1.5s linear infinite;
-}
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
@@ -207,4 +199,13 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #383636;
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
 }
