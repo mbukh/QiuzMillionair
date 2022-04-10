@@ -4,11 +4,15 @@ import Timer from "./components/Timer";
 import Start from "./components/Start";
 import "./app.css";
 
+// next steps:
+// blink right answer when a wrong was chosen
+
 function App() {
   const [questionsData, setQuestionsData] = useState(null);
   const [username, setUsername] = useState(null);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [stop, setStop] = useState(false);
+  const [stopTimer, setStopTimer] = useState(false);
   const [earned, setEarned] = useState("$ 0");
 
   const moneyPyramid = useMemo(
@@ -47,14 +51,18 @@ function App() {
               <>
                 <div className="top">
                   <div className="timer">
-                    <Timer setStop={setStop} questionNumber={questionNumber} />
+                    <Timer
+                      setStop={setStop}
+                      stopTimer={stopTimer}
+                      questionNumber={questionNumber}
+                    />
                   </div>
                 </div>
                 <div className="bottom">
                   <Trivia
                     questionsData={questionsData}
-                    stop={stop}
                     setStop={setStop}
+                    setStopTimer={setStopTimer}
                     questionNumber={questionNumber}
                     setQuestionNumber={setQuestionNumber}
                   />
@@ -67,7 +75,7 @@ function App() {
               <li
                 className="moneyListItem"
                 onClick={() =>
-                  questionsData[questionNumber] && !stop
+                  questionsData[questionNumber] && !stop && !stopTimer
                     ? setQuestionNumber(questionNumber + 1)
                     : ""
                 }

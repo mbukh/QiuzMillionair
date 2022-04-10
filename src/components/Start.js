@@ -8,6 +8,10 @@ export default function Start({
 }) {
   const inputRef = useRef();
 
+  const handleClick = () => {
+    inputRef.current.value && setUsername(inputRef.current.value);
+  };
+
   useEffect(() => {
     axios.get(`https://opentdb.com/api.php?amount=500`).then((res) => {
       const questionsSet = [].concat(
@@ -45,10 +49,6 @@ export default function Start({
       setQuestionsData(questionsSet.slice(0, 10));
     });
   }, []);
-
-  const handleClick = () => {
-    inputRef.current.value && setUsername(inputRef.current.value);
-  };
 
   return (
     <div className="start">

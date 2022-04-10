@@ -6,14 +6,10 @@ import wrong from "../assets/wrong.mp3";
 import { decode } from "html-entities";
 import { v4 as uuid } from "uuid";
 
-// next steps
-// when time out but correct answer stop moving to the next question: if stop, setStop
-// blink right answer when a wrong was chosen
-
 export default function Trivia({
   questionsData,
-  stop,
   setStop,
+  setStopTimer,
   questionNumber,
   setQuestionNumber,
 }) {
@@ -30,13 +26,45 @@ export default function Trivia({
   }, [letsPlay]);
 
   // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-  function shuffleArray(a) {
+  const shuffleArray = (a) => {
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
-  }
+  };
+
+  const delay = (duration, callback) => {
+    setTimeout(() => {
+      callback();
+    }, duration);
+  };
+
+  const handleClick = (a) => {
+    setSelectedAnswer(a);
+    setClassName("answer active");
+    setStopTimer(true);
+    delay(3000, () =>
+      setClassName(
+        a === question.correct_answer ? "answer correct" : "answer wrong"
+      )
+    );
+    delay(4600, () => {
+      if (a === question.correct_answer) {
+        correctAnswer();
+        setStopTimer(false);
+        delay(5600, () => {
+          setQuestionNumber((prev) => prev + 1);
+          setSelectedAnswer(null);
+        });
+      } else {
+        wrongAnswer();
+        delay(3000, () => {
+          setStop(true);
+        });
+      }
+    });
+  };
 
   useEffect(() => {
     if (!questionsData[questionNumber - 1]) {
@@ -52,36 +80,6 @@ export default function Trivia({
       )
     );
   }, [questionsData, questionNumber]);
-
-  const delay = (duration, callback) => {
-    setTimeout(() => {
-      callback();
-    }, duration);
-  };
-
-  const handleClick = (a) => {
-    setSelectedAnswer(a);
-    setClassName("answer active");
-    delay(3000, () =>
-      setClassName(
-        a === question.correct_answer ? "answer correct" : "answer wrong"
-      )
-    );
-    delay(4600, () => {
-      if (a === question.correct_answer) {
-        correctAnswer();
-        delay(5600, () => {
-          setQuestionNumber((prev) => prev + 1);
-          setSelectedAnswer(null);
-        });
-      } else {
-        wrongAnswer();
-        delay(3000, () => {
-          setStop(true);
-        });
-      }
-    });
-  };
 
   return (
     <div className="trivia">
