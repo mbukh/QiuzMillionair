@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import useSound from "use-sound";
 import wrong from "../assets/wrong.mp3";
 
-export default function Timer({ setStop, stopTimer, questionNumber }) {
+export default function Timer({
+  setStop,
+  stopTimer,
+  setStopTimer,
+  questionNumber,
+}) {
   const [timer, setTimer] = useState(30);
   const [wrongAnswer] = useSound(wrong);
 
@@ -10,6 +15,7 @@ export default function Timer({ setStop, stopTimer, questionNumber }) {
     if (stopTimer) return;
     if (timer === 0) {
       wrongAnswer();
+      setStopTimer(true);
       setTimeout(() => setStop(true), 2000);
       return;
     }

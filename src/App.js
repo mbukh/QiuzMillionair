@@ -55,6 +55,7 @@ function App() {
                     <Timer
                       setStop={setStop}
                       stopTimer={stopTimer}
+                      setStopTimer={setStopTimer}
                       questionNumber={questionNumber}
                     />
                   </div>
