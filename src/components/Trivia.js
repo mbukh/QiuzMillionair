@@ -54,10 +54,10 @@ export default function Trivia({
     delay(4600, () => {
       if (a === question.correct_answer) {
         correctAnswer();
-        setStopTimer(false);
         delay(5600, () => {
           setQuestionNumber((prev) => prev + 1);
           setSelectedAnswer(null);
+          setStopTimer(false);
         });
       } else {
         wrongAnswer();
