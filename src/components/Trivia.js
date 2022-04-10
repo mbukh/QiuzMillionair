@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid";
 export default function Trivia({
   questionsData,
   setStop,
+  stopTimer,
   setStopTimer,
   questionNumber,
   setQuestionNumber,
@@ -41,6 +42,7 @@ export default function Trivia({
   };
 
   const handleClick = (a) => {
+    if (stopTimer) return;
     setSelectedAnswer(a);
     setClassName("answer active");
     setStopTimer(true);

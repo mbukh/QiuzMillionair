@@ -62,6 +62,7 @@ function App() {
                   <Trivia
                     questionsData={questionsData}
                     setStop={setStop}
+                    stopTimer={stopTimer}
                     setStopTimer={setStopTimer}
                     questionNumber={questionNumber}
                     setQuestionNumber={setQuestionNumber}
