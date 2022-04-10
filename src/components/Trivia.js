@@ -55,9 +55,9 @@ export default function Trivia({
       if (a === question.correct_answer) {
         correctAnswer();
         delay(5600, () => {
-          setQuestionNumber((prev) => prev + 1);
           setSelectedAnswer(null);
-          setStopTimer(false);
+          setStopTimer(null);
+          setQuestionNumber((prev) => prev + 1);
         });
       } else {
         wrongAnswer();
