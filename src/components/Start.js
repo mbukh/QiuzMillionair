@@ -13,7 +13,7 @@ export default function Start({
   };
 
   useEffect(() => {
-    axios.get(`https://opentdb.com/api.php?amount=500`).then((res) => {
+    axios.get(`https://opentdb.com/api.php?amount=1000`).then((res) => {
       const questionsSet = [].concat(
         res.data.results
           .filter((obj) => {
