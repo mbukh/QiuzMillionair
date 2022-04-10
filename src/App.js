@@ -6,6 +6,7 @@ import "./app.css";
 
 // next steps:
 // blink right answer when a wrong was chosen
+// check to get always 10 question of different type with less json queue
 
 function App() {
   const [questionsData, setQuestionsData] = useState(null);
